@@ -17,13 +17,11 @@
             --card-bg: rgba(30, 41, 59, 0.7);
             --gradient: linear-gradient(135deg, #0ea5e9, #6366f1, #8b5cf6);
         }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             background: var(--bg);
@@ -31,13 +29,11 @@
             line-height: 1.6;
             overflow-x: hidden;
         }
-
         /* ===== ANIMATIONS ===== */
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-12px); }
         }
-
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -48,23 +44,19 @@
                 transform: translateY(0);
             }
         }
-
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-
         @keyframes gradientShift {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-
         @keyframes pulse {
             0%, 100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.4); }
             50% { box-shadow: 0 0 0 18px rgba(56, 189, 248, 0); }
         }
-
         @keyframes slideInLeft {
             from {
                 opacity: 0;
@@ -75,7 +67,6 @@
                 transform: translateX(0);
             }
         }
-
         /* ===== HEADER ===== */
         header {
             position: fixed;
@@ -92,7 +83,6 @@
             border-bottom: 1px solid rgba(148, 163, 184, 0.15);
             animation: fadeIn 0.8s ease;
         }
-
         .logo {
             font-size: 1.35rem;
             font-weight: 700;
@@ -102,7 +92,6 @@
             color: var(--text);
             text-decoration: none;
         }
-
         .logo span {
             background: var(--gradient);
             background-size: 200% 200%;
@@ -111,7 +100,6 @@
             color: transparent;
             animation: gradientShift 4s ease infinite;
         }
-
         .nav-btn {
             padding: 10px 22px;
             background: var(--primary);
@@ -125,13 +113,11 @@
             text-decoration: none;
             display: inline-block;
         }
-
         .nav-btn:hover {
             background: var(--primary-dark);
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(14, 165, 233, 0.3);
         }
-
         /* ===== HERO ===== */
         .hero {
             min-height: 100vh;
@@ -144,7 +130,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .hero::before {
             content: '';
             position: absolute;
@@ -156,7 +141,6 @@
             border-radius: 50%;
             animation: float 8s ease-in-out infinite;
         }
-
         .hero::after {
             content: '';
             position: absolute;
@@ -168,7 +152,6 @@
             border-radius: 50%;
             animation: float 10s ease-in-out infinite reverse;
         }
-
         .hero-badge {
             display: inline-flex;
             align-items: center;
@@ -183,7 +166,6 @@
             margin-bottom: 28px;
             animation: fadeInUp 0.8s ease 0.2s both;
         }
-
         .hero h1 {
             font-size: clamp(2.4rem, 6vw, 3.8rem);
             font-weight: 800;
@@ -192,7 +174,6 @@
             max-width: 900px;
             animation: fadeInUp 0.8s ease 0.3s both;
         }
-
         .hero h1 .highlight {
             background: var(--gradient);
             background-size: 200% 200%;
@@ -201,7 +182,6 @@
             color: transparent;
             animation: gradientShift 5s ease infinite;
         }
-
         .hero p {
             font-size: 1.2rem;
             color: var(--text-muted);
@@ -209,7 +189,6 @@
             margin-bottom: 40px;
             animation: fadeInUp 0.8s ease 0.45s both;
         }
-
         .hero-buttons {
             display: flex;
             gap: 16px;
@@ -217,7 +196,6 @@
             justify-content: center;
             animation: fadeInUp 0.8s ease 0.6s both;
         }
-
         .btn-primary {
             padding: 16px 36px;
             background: var(--primary);
@@ -234,13 +212,11 @@
             gap: 10px;
             animation: pulse 2.5s infinite;
         }
-
         .btn-primary:hover {
             background: var(--primary-dark);
             transform: translateY(-3px);
             box-shadow: 0 12px 30px rgba(14, 165, 233, 0.4);
         }
-
         .btn-secondary {
             padding: 16px 32px;
             background: transparent;
@@ -253,13 +229,11 @@
             transition: all 0.3s ease;
             text-decoration: none;
         }
-
         .btn-secondary:hover {
             border-color: var(--primary);
             color: var(--primary);
             transform: translateY(-3px);
         }
-
         /* ===== STATS ===== */
         .stats {
             display: flex;
@@ -269,54 +243,62 @@
             margin-top: 70px;
             animation: fadeInUp 0.8s ease 0.8s both;
         }
-
         .stat-item {
             text-align: center;
         }
-
         .stat-number {
             font-size: 2.2rem;
             font-weight: 800;
             color: var(--primary);
             display: block;
         }
-
         .stat-label {
             font-size: 0.95rem;
             color: var(--text-muted);
         }
-
+        /* ===== IMAGE RESPONSIVE ===== */
+        .img {
+            display: block;
+            margin: 40px auto;
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border-radius: 16px;
+            border: 2px solid #6366f1;
+            box-shadow: 0 12px 40px rgba(99, 102, 241, 0.25);
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+            object-fit: cover;
+        }
+        .img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 50px rgba(99, 102, 241, 0.35);
+        }
         /* ===== FEATURES ===== */
         .features {
             padding: 100px 5%;
             max-width: 1200px;
             margin: 0 auto;
         }
-
         .section-title {
             text-align: center;
             margin-bottom: 60px;
         }
-
         .section-title h2 {
             font-size: clamp(1.9rem, 4vw, 2.5rem);
             font-weight: 800;
             margin-bottom: 12px;
         }
-
         .section-title p {
             color: var(--text-muted);
             font-size: 1.1rem;
             max-width: 550px;
             margin: 0 auto;
         }
-
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 28px;
         }
-
         .feature-card {
             background: var(--card-bg);
             border: 1px solid rgba(148, 163, 184, 0.15);
@@ -327,7 +309,6 @@
             overflow: hidden;
             backdrop-filter: blur(8px);
         }
-
         .feature-card::before {
             content: '';
             position: absolute;
@@ -342,45 +323,37 @@
             transition: transform 0.4s ease;
             animation: gradientShift 4s ease infinite;
         }
-
         .feature-card:hover {
             transform: translateY(-10px);
             border-color: rgba(56, 189, 248, 0.35);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
-
         .feature-card:hover::before {
             transform: scaleX(1);
         }
-
         .feature-icon {
             font-size: 2.4rem;
             margin-bottom: 18px;
             display: block;
             animation: float 5s ease-in-out infinite;
         }
-
         .feature-card:nth-child(2) .feature-icon { animation-delay: 0.5s; }
         .feature-card:nth-child(3) .feature-icon { animation-delay: 1s; }
         .feature-card:nth-child(4) .feature-icon { animation-delay: 1.5s; }
-
         .feature-card h3 {
             font-size: 1.25rem;
             margin-bottom: 10px;
             color: var(--text);
         }
-
         .feature-card p {
             color: var(--text-muted);
             font-size: 0.98rem;
         }
-
         /* ===== MODULES PREVIEW ===== */
         .modules {
             padding: 80px 5% 100px;
             background: linear-gradient(180deg, transparent, rgba(30, 41, 59, 0.5));
         }
-
         .modules-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -388,7 +361,6 @@
             max-width: 1100px;
             margin: 0 auto;
         }
-
         .module-item {
             background: var(--card-bg);
             border: 1px solid rgba(148, 163, 184, 0.12);
@@ -400,13 +372,11 @@
             transition: all 0.3s ease;
             cursor: default;
         }
-
         .module-item:hover {
             border-color: var(--primary);
             transform: translateX(6px);
             background: rgba(56, 189, 248, 0.08);
         }
-
         .module-number {
             width: 38px;
             height: 38px;
@@ -420,19 +390,16 @@
             font-size: 0.95rem;
             flex-shrink: 0;
         }
-
         .module-item span {
             font-size: 0.95rem;
             font-weight: 500;
         }
-
         /* ===== CTA FINAL ===== */
         .cta {
             padding: 100px 5%;
             text-align: center;
             position: relative;
         }
-
         .cta-box {
             max-width: 700px;
             margin: 0 auto;
@@ -443,7 +410,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .cta-box::before {
             content: '';
             position: absolute;
@@ -451,18 +417,15 @@
             background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.12), transparent 60%);
             pointer-events: none;
         }
-
         .cta h2 {
             font-size: clamp(1.8rem, 4vw, 2.4rem);
             margin-bottom: 16px;
         }
-
         .cta p {
             color: var(--text-muted);
             font-size: 1.1rem;
             margin-bottom: 32px;
         }
-
         /* ===== FOOTER ===== */
         footer {
             text-align: center;
@@ -471,7 +434,6 @@
             color: var(--text-muted);
             font-size: 0.9rem;
         }
-
         /* ===== RESPONSIVE ===== */
         @media (max-width: 700px) {
             header {
@@ -510,8 +472,12 @@
             .modules {
                 padding: 60px 4% 80px;
             }
+            .img {
+                max-width: 92%;
+                margin: 30px auto;
+                border-radius: 12px;
+            }
         }
-
         @media (max-width: 480px) {
             .stats {
                 gap: 24px;
@@ -519,23 +485,15 @@
             .feature-card {
                 padding: 26px 22px;
             }
-        }
-        .img{
-            border-radius: 5%;
-            border-color: #6366f1;
-            display: block;
-            margin: 0 auto;
-            width: 800px;
-            animation-duration: 1s;
-            transition: transform 0,3 ease;
-        }
-        .img:hover{
-            transform: scale(1,1);
+            .img {
+                max-width: 94%;
+                margin: 24px auto;
+                border-radius: 10px;
+            }
         }
     </style>
 </head>
 <body>
-
     <!-- Header -->
     <header>
         <a href="#" class="logo">
@@ -543,7 +501,6 @@
         </a>
         <a href="boris.html" class="nav-btn">Commencer →</a>
     </header>
-
     <!-- Hero -->
     <section class="hero">
         <div class="hero-badge">
@@ -554,7 +511,7 @@
             de A à Z
         </h1>
         <p>
-            Un parcours clair, progressif et interactif pour comprendre les réseaux, 
+            Un parcours clair, progressif et interactif pour comprendre les réseaux,
             la sécurité, les protocoles et bien plus encore.
         </p>
         <div class="hero-buttons">
@@ -565,7 +522,6 @@
                 Voir le programme
             </a>
         </div>
-
         <div class="stats">
             <div class="stat-item">
                 <span class="stat-number">12</span>
@@ -585,14 +541,15 @@
             </div>
         </div>
     </section>
-    <img class="img" src="tech.jpeg">
+
+    <img class="img" src="tech.jpeg" alt="Illustration réseaux informatiques">
+
     <!-- Features -->
     <section class="features">
         <div class="section-title">
             <h2>Pourquoi ce cours ?</h2>
             <p>Tout ce dont tu as besoin pour vraiment comprendre les réseaux, pas seulement les mémoriser.</p>
         </div>
-
         <div class="features-grid">
             <div class="feature-card">
                 <span class="feature-icon">🔊</span>
@@ -616,14 +573,12 @@
             </div>
         </div>
     </section>
-
     <!-- Modules -->
     <section class="modules" id="modules">
         <div class="section-title">
             <h2>Le programme complet</h2>
             <p>12 modules progressifs pour devenir à l’aise avec les réseaux.</p>
         </div>
-
         <div class="modules-grid">
             <div class="module-item">
                 <div class="module-number">01</div>
@@ -675,7 +630,6 @@
             </div>
         </div>
     </section>
-
     <!-- CTA Final -->
     <section class="cta">
         <div class="cta-box">
@@ -686,11 +640,9 @@
             </a>
         </div>
     </section>
-
     <!-- Footer -->
     <footer>
         <p>© 2026 — Le Guide Ultime du Réseau Informatique • Fait avec ❤️ pour les passionnés</p>
     </footer>
-
 </body>
 </html>
