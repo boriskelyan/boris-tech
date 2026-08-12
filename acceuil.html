@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Apprenez les réseaux informatiques de A à Z : cours complets, lecture vocale, exercices et quiz interactifs.">
+    <title>Accueil - Le Guide Ultime du Réseau Informatique</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --bg-light: #1e293b;
+            --primary: #38bdf8;
+            --primary-dark: #0ea5e9;
+            --accent: #818cf8;
+            --text: #f1f5f9;
+            --text-muted: #94a3b8;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --gradient: linear-gradient(135deg, #0ea5e9, #6366f1, #8b5cf6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.4); }
+            50% { box-shadow: 0 0 0 18px rgba(56, 189, 248, 0); }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 18px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+            animation: fadeIn 0.8s ease;
+        }
+
+        .logo {
+            font-size: 1.35rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .logo span {
+            background: var(--gradient);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientShift 4s ease infinite;
+        }
+
+        .nav-btn {
+            padding: 10px 22px;
+            background: var(--primary);
+            color: #0f172a;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(14, 165, 233, 0.3);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 5% 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 70%);
+            top: -100px;
+            right: -100px;
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(129, 140, 248, 0.12) 0%, transparent 70%);
+            bottom: 50px;
+            left: -80px;
+            border-radius: 50%;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px solid rgba(56, 189, 248,.3);
+            color: var(--primary);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 28px;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.4rem, 6vw, 3.8rem);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            max-width: 900px;
+            animation: fadeInUp 0.8s ease 0.3s both;
+        }
+
+        .hero h1 .highlight {
+            background: var(--gradient);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientShift 5s ease infinite;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 620px;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease 0.45s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: fadeInUp 0.8s ease 0.6s both;
+        }
+
+        .btn-primary {
+            padding: 16px 36px;
+            background: var(--primary);
+            color: #0f172a;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            animation: pulse 2.5s infinite;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(14, 165, 233, 0.4);
+        }
+
+        .btn-secondary {
+            padding: 16px 32px;
+            background: transparent;
+            color: var(--text);
+            border: 2px solid rgba(148, 163, 184, 0.4);
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* ===== STATS ===== */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+            margin-top: 70px;
+            animation: fadeInUp 0.8s ease 0.8s both;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== FEATURES ===== */
+        .features {
+            padding: 100px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: clamp(1.9rem, 4vw, 2.5rem);
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            border-radius: 20px;
+            padding: 32px 28px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(8px);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient);
+            background-size: 200% 200%;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+            animation: gradientShift 4s ease infinite;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(56, 189, 248, 0.35);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            font-size: 2.4rem;
+            margin-bottom: 18px;
+            display: block;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        .feature-card:nth-child(2) .feature-icon { animation-delay: 0.5s; }
+        .feature-card:nth-child(3) .feature-icon { animation-delay: 1s; }
+        .feature-card:nth-child(4) .feature-icon { animation-delay: 1.5s; }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.98rem;
+        }
+
+        /* ===== MODULES PREVIEW ===== */
+        .modules {
+            padding: 80px 5% 100px;
+            background: linear-gradient(180deg, transparent, rgba(30, 41, 59, 0.5));
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .module-item {
+            background: var(--card-bg);
+            border: 1px solid rgba(148, 163, 184, 0.12);
+            border-radius: 14px;
+            padding: 20px 18px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .module-item:hover {
+            border-color: var(--primary);
+            transform: translateX(6px);
+            background: rgba(56, 189, 248, 0.08);
+        }
+
+        .module-number {
+            width: 38px;
+            height: 38px;
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.95rem;
+            flex-shrink: 0;
+        }
+
+        .module-item span {
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* ===== CTA FINAL ===== */
+        .cta {
+            padding: 100px 5%;
+            text-align: center;
+            position: relative;
+        }
+
+        .cta-box {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 28px;
+            padding: 60px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.12), transparent 60%);
+            pointer-events: none;
+        }
+
+        .cta h2 {
+            font-size: clamp(1.8rem, 4vw, 2.4rem);
+            margin-bottom: 16px;
+        }
+
+        .cta p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 32px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 30px 5%;
+            border-top: 1px solid rgba(148, 163, 184, 0.12);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 700px) {
+            header {
+                padding: 14px 4%;
+            }
+            .logo {
+                font-size: 1.15rem;
+            }
+            .hero {
+                padding: 110px 4% 60px;
+            }
+            .hero p {
+                font-size: 1.05rem;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+                max-width: 320px;
+            }
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+            .stats {
+                gap: 30px;
+            }
+            .stat-number {
+                font-size: 1.8rem;
+            }
+            .features {
+                padding: 70px 4%;
+            }
+            .cta-box {
+                padding: 40px 24px;
+            }
+            .modules {
+                padding: 60px 4% 80px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats {
+                gap: 24px;
+            }
+            .feature-card {
+                padding: 26px 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <a href="#" class="logo">
+            📡 <span>Réseau Master</span>
+        </a>
+        <a href="index.html" class="nav-btn">Commencer →</a>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-badge">
+            ✨ Cours complet + Lecture vocale
+        </div>
+        <h1>
+            Maîtrise les <span class="highlight">Réseaux Informatiques</span><br>
+            de A à Z
+        </h1>
+        <p>
+            Un parcours clair, progressif et interactif pour comprendre les réseaux, 
+            la sécurité, les protocoles et bien plus encore.
+        </p>
+        <div class="hero-buttons">
+            <a href="cours.html" class="btn-primary">
+                🚀 Commencer le cours
+            </a>
+            <a href="#modules" class="btn-secondary">
+                Voir le programme
+            </a>
+        </div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-number">12</span>
+                <span class="stat-label">Modules</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">6</span>
+                <span class="stat-label">Exercices</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">8</span>
+                <span class="stat-label">Questions Quiz</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">100%</span>
+                <span class="stat-label">Gratuit</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <div class="section-title">
+            <h2>Pourquoi ce cours ?</h2>
+            <p>Tout ce dont tu as besoin pour vraiment comprendre les réseaux, pas seulement les mémoriser.</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <span class="feature-icon">🔊</span>
+                <h3>Lecture Vocale</h3>
+                <p>Écoute chaque section à voix haute. Idéal pour réviser en déplacement ou en multitâche.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🖥️</span>
+                <h3>Terminal Simulé</h3>
+                <p>Entraîne-toi avec des commandes réseau (ping, traceroute, ipconfig…) directement dans le navigateur.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🧮</span>
+                <h3>Calculateur CIDR</h3>
+                <p>Calcule instantanément les sous-réseaux, le nombre d’hôtes et les plages d’adresses.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🧠</span>
+                <h3>Quiz & Exercices</h3>
+                <p>Valide tes connaissances avec des exercices corrigés et un quiz final de 8 questions.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modules -->
+    <section class="modules" id="modules">
+        <div class="section-title">
+            <h2>Le programme complet</h2>
+            <p>12 modules progressifs pour devenir à l’aise avec les réseaux.</p>
+        </div>
+
+        <div class="modules-grid">
+            <div class="module-item">
+                <div class="module-number">01</div>
+                <span>Introduction aux réseaux</span>
+            </div>
+            <div class="module-item">
+                <div class="module-number">02</div>
+                <span>Types de réseaux</span>
+            </div>
+            <div class="module-item">
+                <div class="module-number">03</div>
+                <span>Topologies</span>
+            </div>
+            <div class="module-item">
+                <div class="module-number">04</div>
+                <span>Matériels & câblage</span>
+            </div>
+            <div class="module-item">
+                <div class="module-number">05</div>
+                <span>OSI & TCP/IP</span>
+            </div>
+            <div class="module-item">
+                <div class="module-number">06</div>
+                <span>Adressage IP</span>
+            </div>
+            <div class="module-item">
+                <div class="module-number">07</div>
+                <span>Protocoles</span>
+            </div>
+            <div class="module-item">
+                <div class="module-number">08</div>
+                <span>Sécurité réseau</span>
+            </div>
+            <div class="module-item">
+                <div class="module-number">09</div>
+                <span>Terminal pratique</span>
+            </div>
+            <div class="module-item">
+                <div class="module-number">10</div>
+                <span>Calculateur CIDR</span>
+            </div>
+            <div class="module-item">
+                <div class="module-number">11</div>
+                <span>Exercices corrigés</span>
+            </div>
+            <div class="module-item">
+                <div class="module-number">12</div>
+                <span>Quiz final</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="cta">
+        <div class="cta-box">
+            <h2>Prêt à devenir expert réseau ?</h2>
+            <p>Accède dès maintenant au cours complet, aux outils interactifs et au quiz.</p>
+            <a href="cours.html" class="btn-primary">
+                🚀 Lancer le cours maintenant
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 — Le Guide Ultime du Réseau Informatique • Fait avec ❤️ pour les passionnés</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cours complet sur les réseaux informatiques avec lecture vocale, matériels, sécurité, exercices et quiz.">
+    <title>Apprendre le Réseau - Cours + Lecture Vocale</title>
+    <style>
+        :root {
+            --bg-color: #f0f4f8;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --text-muted: #555555;
+            --primary: #1a3c6e;
+            --primary-hover: #14305a;
+            --accent-blue: #e8eef5;
+            --border-color: #e5eaf0;
+            --box-bg: #f8fafc;
+            --code-bg: #1e1e1e;
+            --code-text: #f8f8f2;
+        }
+        [data-theme="dark"] {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f1f5f9;
+            --text-muted: #94a3b8;
+            --primary: #38bdf8;
+            --primary-hover: #0284c7;
+            --accent-blue: #334155;
+            --border-color: #334155;
+            --box-bg: #0f172a;
+            --code-text: #38bdf8;
+        }
+        * { 
+            margin: 0;
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        body { 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            background: var(--bg-color); 
+            padding: 16px; 
+            color: var(--text-color); 
+            line-height: 1.65; 
+        }
+        .container { 
+            max-width: 1120px; 
+            margin: auto; 
+            background: var(--card-bg); 
+            border-radius: 14px; 
+            padding: 24px; 
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1); 
+        }
+        .header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: flex-start; 
+            flex-wrap: wrap; 
+            gap: 12px; 
+            margin-bottom: 18px; 
+        }
+        h1 { 
+            color: var(--primary); 
+            font-size: 1.75rem; 
+            line-height: 1.3;
+        }
+        .subtitle { 
+            color: var(--text-muted); 
+            margin-top: 4px;
+            font-size: 0.95rem;
+        }
+        .header-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .theme-toggle { 
+            padding: 8px 14px; 
+            background: var(--accent-blue); 
+            color: var(--text-color); 
+            border: 1px solid var(--border-color); 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-weight: 600; 
+            white-space: nowrap;
+        }
+        .tabs { 
+            display: flex; 
+            gap: 6px; 
+            margin: 12px 0 18px; 
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+            border-bottom: 2px solid var(--border-color); 
+            padding-bottom: 12px; 
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+        }
+        .tabs::-webkit-scrollbar {
+            height: 6px;
+        }
+        .tabs::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+        .tab { 
+            padding: 9px 14px; 
+            background: var(--accent-blue); 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-weight: 600; 
+            color: var(--text-color); 
+            font-size: 0.88rem;
+            flex-shrink: 0;
+        }
+        .tab.active { 
+            background: var(--primary); 
+            color: white; 
+        }
+        .content { display: none; padding: 8px 0; }
+        .content.active { display: block; }
+        .card { 
+            background: var(--box-bg); 
+            border-left: 5px solid var(--primary); 
+            padding: 16px 18px; 
+            margin: 14px 0; 
+            border-radius: 0 10px 10px 0; 
+        }
+        .card h3 { 
+            color: var(--primary); 
+            margin-bottom: 10px; 
+            font-size: 1.2rem; 
+        }
+        .card h4 { 
+            margin: 14px 0 6px; 
+            font-size: 1.05rem; 
+            color: var(--primary); 
+        }
+        .card ul, .card ol { margin-left: 20px; margin-top: 6px; }
+        .card li { margin-bottom: 5px; }
+        .highlight { 
+            background: rgba(59, 130, 246, 0.1); 
+            padding: 12px 15px; 
+            border-radius: 8px; 
+            margin: 12px 0; 
+            border-left: 4px solid #3b82f6; 
+        }
+        .schema-box { 
+            background: var(--card-bg); 
+            border: 1px solid var(--border-color); 
+            border-radius: 10px; 
+            padding: 15px; 
+            margin: 15px 0; 
+            text-align: center; 
+            overflow-x: auto; 
+        }
+        pre { 
+            background: var(--code-bg); 
+            color: var(--code-text); 
+            padding: 14px; 
+            border-radius: 8px; 
+            overflow-x: auto; 
+            margin: 10px 0; 
+            font-size: 0.9rem; 
+            font-family: Consolas, Monaco, monospace; 
+            text-align: left; 
+        }
+        code { font-family: Consolas, Monaco, monospace; }
+        .terminal { 
+            background: #0c0c0c; 
+            color: #00ff00; 
+            padding: 14px; 
+            border-radius: 8px; 
+            font-family: monospace; 
+            min-height: 160px; 
+            max-height: 280px; 
+            overflow-y: auto; 
+            margin: 10px 0; 
+            text-align: left; 
+            font-size: 0.9rem;
+        }
+        .terminal-input-container { 
+            display: flex; 
+            gap: 8px; 
+            align-items: center; 
+            margin-top: 10px; 
+            flex-wrap: wrap;
+        }
+        .btn { 
+            padding: 10px 16px; 
+            background: #1a3c6e; 
+            color: white; 
+            border: none; 
+            border-radius: 7px; 
+            cursor: pointer; 
+            margin: 4px 3px 4px 0; 
+            font-weight: 500;
+            font-size: 0.92rem;
+            white-space: nowrap;
+        }
+        .btn:hover { opacity: 0.9; }
+        .btn-secondary { background: #64748b; color: white; }
+        .btn-voice { background: #059669; }
+        .btn-stop { background: #dc2626; }
+        input[type="text"] { 
+            padding: 9px 12px; 
+            border: 1px solid var(--border-color); 
+            background: var(--card-bg); 
+            color: var(--text-color); 
+            border-radius: 6px; 
+            width: 100%;
+            max-width: 320px;
+            font-size: 1rem; 
+        }
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 12px 0;
+            -webkit-overflow-scrolling: touch;
+        }
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            font-size: 0.92rem; 
+            min-width: 500px;
+        }
+        th, td { 
+            border: 1px solid var(--border-color); 
+            padding: 9px 11px; 
+            text-align: left; 
+        }
+        th { background: #1a3c6e; color: white; }
+        [data-theme="dark"] th { background: #0f172a; }
+        .quiz-question { 
+            margin: 14px 0; 
+            padding: 14px; 
+            background: var(--card-bg); 
+            border-radius: 10px; 
+            border: 1px solid var(--border-color); 
+            text-align: left; 
+        }
+        .quiz-question p { font-weight: 600; margin-bottom: 8px; }
+        .quiz-question label { display: block; margin: 6px 0; cursor: pointer; }
+        .score-box { 
+            background: #1a3c6e; 
+            color: white; 
+            padding: 16px; 
+            border-radius: 10px; 
+            text-align: center; 
+            margin-top: 20px; 
+            font-size: 1.1rem; 
+            display: none; 
+        }
+        .exo-box { 
+            background: rgba(249, 115, 22, 0.08); 
+            border-left: 5px solid #f97316; 
+            padding: 14px; 
+            margin: 12px 0; 
+            border-radius: 0 10px 10px 0; 
+            text-align: left; 
+        }
+        
+        /* Contrôles vocaux */
+        .voice-controls {
+            background: var(--accent-blue);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 12px 14px;
+            margin-bottom: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+        .voice-controls label { font-weight: 600; margin-right: 4px; font-size: 0.92rem; }
+        .voice-controls select, .voice-controls input[type="range"] {
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            color: var(--text-color);
+        }
+        .voice-controls select {
+            max-width: 200px;
+            width: 100%;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 900px) {
+            body { padding: 12px; }
+            .container { padding: 20px; }
+            h1 { font-size: 1.55rem; }
+        }
+
+        @media (max-width: 700px) {
+            body { padding: 10px; }
+            .container { 
+                padding: 16px; 
+                border-radius: 10px;
+            }
+            h1 { font-size: 1.4rem; }
+            .subtitle { font-size: 0.9rem; }
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .header-actions {
+                width: 100%;
+            }
+            .theme-toggle, .header-actions .btn {
+                flex: 1;
+                text-align: center;
+            }
+            .voice-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .voice-controls > * {
+                width: 100%;
+            }
+            .voice-controls label {
+                margin-bottom: 2px;
+            }
+            .voice-controls select {
+                max-width: 100%;
+            }
+            .tab {
+                font-size: 0.84rem;
+                padding: 8px 12px;
+            }
+            .card {
+                padding: 14px;
+            }
+            .card h3 { font-size: 1.1rem; }
+            .btn {
+                padding: 9px 14px;
+                font-size: 0.88rem;
+            }
+            input[type="text"] {
+                max-width: 100%;
+            }
+            .terminal-input-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .terminal-input-container .btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 8px; }
+            .container { padding: 14px; }
+            h1 { font-size: 1.25rem; }
+            .card {
+                border-left-width: 4px;
+                padding: 12px;
+            }
+            .tab {
+                font-size: 0.8rem;
+                padding: 7px 10px;
+            }
+            table {
+                font-size: 0.85rem;
+                min-width: 420px;
+            }
+            th, td {
+                padding: 7px 8px;
+            }
+            .quiz-question {
+                padding: 12px;
+            }
+            .exo-box {
+                padding: 12px;
+            }
+            pre {
+                font-size: 0.82rem;
+                padding: 12px;
+            }
+        }
+
+        @media print {
+            body { background: white; color: black; }
+            .tabs, .theme-toggle, .btn, input, .terminal-input-container, .voice-controls, .header-actions { 
+                display: none !important; 
+            }
+            .content { display: block !important; page-break-after: always; }
+            .container { 
+                box-shadow: none; 
+                width: 100%; 
+                max-width: none; 
+                padding: 0; 
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div>
+            <h1>📡 Le Guide Ultime du Réseau Informatique</h1>
+            <p class="subtitle">Cours exhaustif + Lecture vocale + Matériels & Sécurité</p>
+        </div>
+        <div class="header-actions">
+            <button class="theme-toggle" onclick="toggleTheme()">🌙 Mode Sombre</button>
+            <button class="btn btn-secondary" onclick="window.print()">🖨️ Imprimer / PDF</button>
+        </div>
+    </div>
+
+    <!-- Contrôles vocaux globaux -->
+    <div class="voice-controls">
+        <button class="btn btn-voice" onclick="lireSectionActuelle()">🔊 Lire cette section</button>
+        <button class="btn btn-stop" onclick="arreterLecture()">⏹️ Arrêter</button>
+        <label>Vitesse :</label>
+        <input type="range" id="rateControl" min="0.6" max="1.6" step="0.1" value="1" style="width:100px;">
+        <span id="rateValue">1.0x</span>
+        <label>Voix :</label>
+        <select id="voiceSelect"></select>
+    </div>
+
+    <div class="tabs">
+        <button class="tab active" data-tab="intro">📘 1. Intro</button>
+        <button class="tab" data-tab="types">🌐 2. Types</button>
+        <button class="tab" data-tab="topo">🔀 3. Topologies</button>
+        <button class="tab" data-tab="materiel">🔌 4. Matériels</button>
+        <button class="tab" data-tab="modeles">📐 5. OSI & TCP/IP</button>
+        <button class="tab" data-tab="adressage">🔢 6. Adressage</button>
+        <button class="tab" data-tab="protocoles">⚙️ 7. Protocoles</button>
+        <button class="tab" data-tab="securite">🔒 8. Sécurité</button>
+        <button class="tab" data-tab="cli">🖥️ 9. Terminal</button>
+        <button class="tab" data-tab="outils">🧮 10. Calculateur</button>
+        <button class="tab" data-tab="exercices">✏️ 11. Exercices</button>
+        <button class="tab" data-tab="quiz">🧠 12. Quiz</button>
+    </div>
+
+    <!-- ==================== CONTENUS ==================== -->
+
+    <div id="intro" class="content active">
+        <div class="card">
+            <h3>1. Qu’est-ce qu’un réseau informatique ?</h3>
+            <p>Un réseau informatique est un ensemble d’équipements interconnectés qui échangent des données et partagent des ressources.</p>
+            <h4>Objectifs principaux :</h4>
+            <ul>
+                <li>Partage de ressources (fichiers, imprimantes, Internet)</li>
+                <li>Communication (messagerie, visioconférence)</li>
+                <li>Centralisation et sauvegarde des données</li>
+                <li>Accès distant sécurisé</li>
+            </ul>
+            <h4>Composants de base :</h4>
+            <ul>
+                <li>Nœuds / Hôtes : machines qui communiquent</li>
+                <li>Liens : câbles ou sans-fil</li>
+                <li>Équipements d’interconnexion : switch, routeur, point d’accès, firewall…</li>
+                <li>Protocoles : règles de communication</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="types" class="content">
+        <div class="card">
+            <h3>Types de réseaux selon l’étendue</h3>
+            <div class="table-wrapper">
+                <table>
+                    <tr><th>Type</th><th>Nom</th><th>Étendue</th><th>Exemples</th></tr>
+                    <tr><td>PAN</td><td>Personal Area Network</td><td>Quelques mètres</td><td>Bluetooth, USB, NFC</td></tr>
+                    <tr><td>LAN</td><td>Local Area Network</td><td>Bâtiment / campus</td><td>Entreprise, maison</td></tr>
+                    <tr><td>CAN</td><td>Campus Area Network</td><td>Plusieurs bâtiments</td><td>Universités</td></tr>
+                    <tr><td>MAN</td><td>Metropolitan Area Network</td><td>Ville</td><td>Réseau métropolitain</td></tr>
+                    <tr><td>WAN</td><td>Wide Area Network</td><td>Pays / continents</td><td>Internet</td></tr>
+                    <tr><td>SAN</td><td>Storage Area Network</td><td>Stockage</td><td>Datacenters</td></tr>
+                    <tr><td>VPN</td><td>Virtual Private Network</td><td>Virtuel</td><td>Accès distant sécurisé</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="topo" class="content">
+        <div class="card">
+            <h3>Topologies de réseaux</h3>
+            <h4>1. Bus</h4>
+            <ul><li>Un seul câble principal</li><li>Simple mais fragile</li></ul>
+            <h4>2. Étoile (Star)</h4>
+            <ul><li>Tous les nœuds reliés à un switch central</li><li>La plus utilisée aujourd’hui</li></ul>
+            <h4>3. Anneau (Ring)</h4>
+            <ul><li>Chaque nœud relié à deux voisins</li><li>Exemple historique : Token Ring</li></ul>
+            <h4>4. Maillage (Mesh)</h4>
+            <ul><li>Connexions multiples → très redondant</li><li>Utilisé dans les backbones critiques</li></ul>
+            <h4>5. Arbre (Tree)</h4>
+            <ul><li>Étoile à plusieurs niveaux (Accès → Distribution → Cœur)</li></ul>
+            <h4>6. Hybride</h4>
+            <p>Combinaison de plusieurs topologies (la plus courante en entreprise).</p>
+        </div>
+    </div>
+
+    <div id="materiel" class="content">
+        <div class="card">
+            <h3>Matériels d’interconnexion</h3>
+            <div class="table-wrapper">
+                <table>
+                    <tr><th>Équipement</th><th>Couche OSI</th><th>Fonction principale</th></tr>
+                    <tr><td>Hub</td><td>1</td><td>Amplifie le signal (obsolète)</td></tr>
+                    <tr><td>Switch</td><td>2</td><td>Commute selon adresse MAC</td></tr>
+                    <tr><td>Routeur</td><td>3</td><td>Route selon adresse IP</td></tr>
+                    <tr><td>Point d’accès</td><td>2</td><td>Wi-Fi</td></tr>
+                    <tr><td>Firewall</td><td>3/4/7</td><td>Filtre le trafic</td></tr>
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <h3>Câbles et connecteurs</h3>
+            <h4>Paire torsadée (cuivre)</h4>
+            <ul>
+                <li>UTP / STP – Catégories Cat5e, Cat6, Cat6a, Cat7, Cat8</li>
+                <li>Connecteur : RJ45</li>
+                <li>Normes : T568A et T568B</li>
+            </ul>
+            <div class="highlight">
+                Câble droit → PC ↔ Switch<br>
+                Câble croisé → PC ↔ PC (rare grâce à l’Auto-MDIX)
+            </div>
+            <h4>Fibre optique</h4>
+            <ul>
+                <li>Multimode : distances moyennes</li>
+                <li>Monomode : très longues distances</li>
+                <li>Connecteurs : LC, SC, ST</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="modeles" class="content">
+        <div class="card">
+            <h3>Modèle OSI (7 couches)</h3>
+            <div class="table-wrapper">
+                <table>
+                    <tr><th>Couche</th><th>Nom</th><th>Rôle</th></tr>
+                    <tr><td>7</td><td>Application</td><td>Services utilisateur (HTTP, FTP, DNS)</td></tr>
+                    <tr><td>6</td><td>Présentation</td><td>Format, chiffrement</td></tr>
+                    <tr><td>5</td><td>Session</td><td>Gestion des sessions</td></tr>
+                    <tr><td>4</td><td>Transport</td><td>TCP, UDP</td></tr>
+                    <tr><td>3</td><td>Réseau</td><td>IP, routage</td></tr>
+                    <tr><td>2</td><td>Liaison</td><td>MAC, Ethernet</td></tr>
+                    <tr><td>1</td><td>Physique</td><td>Câbles, signaux</td></tr>
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <h3>Modèle TCP/IP</h3>
+            <p>4 couches : Application → Transport → Internet → Accès Réseau. Issu du projet ARPANET.</p>
+        </div>
+    </div>
+
+    <div id="adressage" class="content">
+        <div class="card">
+            <h3>Adressage IPv4</h3>
+            <p>32 bits → 4 octets. Exemple : 192.168.1.10</p>
+            <div class="table-wrapper">
+                <table>
+                    <tr><th>Classe</th><th>Plage</th><th>Masque</th></tr>
+                    <tr><td>A</td><td>1.0.0.0 – 126.x.x.x</td><td>/8</td></tr>
+                    <tr><td>B</td><td>128.0.0.0 – 191.x.x.x</td><td>/16</td></tr>
+                    <tr><td>C</td><td>192.0.0.0 – 223.x.x.x</td><td>/24</td></tr>
+                </table>
+            </div>
+            <div class="highlight">
+                IP Privées (RFC 1918) : 10.0.0.0/8 • 172.16.0.0/12 • 192.168.0.0/16
+            </div>
+            <h4>Adresse MAC</h4>
+            <p>48 bits (ex. : 00:1A:2B:3C:4D:5E) – Couche 2</p>
+        </div>
+    </div>
+
+    <div id="protocoles" class="content">
+        <div class="card">
+            <h3>TCP vs UDP</h3>
+            <pre>Three-Way Handshake TCP :
+Client ── SYN ──► Serveur
+Client ◄─ SYN-ACK ─ Serveur
+Client ── ACK ──► Serveur</pre>
+            <p>UDP : rapide, non fiable (VoIP, streaming, jeux).</p>
+        </div>
+        <div class="card">
+            <h3>DHCP – Cycle DORA</h3>
+            <pre>1. Discover → 2. Offer → 3. Request → 4. Acknowledge</pre>
+            <h4>DNS</h4>
+            <p>Traduit nom de domaine → adresse IP</p>
+            <h4>NAT</h4>
+            <p>Plusieurs machines privées partagent une IP publique.</p>
+        </div>
+    </div>
+
+    <div id="securite" class="content">
+        <div class="card">
+            <h3>Principes de sécurité (CIA)</h3>
+            <ul>
+                <li>Confidentialité</li>
+                <li>Intégrité</li>
+                <li>Disponibilité</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>Menaces courantes</h3>
+            <ul>
+                <li>Malware, Ransomware</li>
+                <li>Phishing / Social Engineering</li>
+                <li>DDoS</li>
+                <li>Man-in-the-Middle (MitM)</li>
+                <li>ARP Spoofing / DNS Spoofing</li>
+                <li>Rogue Access Point</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>Protections</h3>
+            <ul>
+                <li>Firewall (stateful / NGFW)</li>
+                <li>VPN (IPsec, WireGuard, OpenVPN)</li>
+                <li>Chiffrement (AES, TLS, WPA3)</li>
+                <li>IDS / IPS</li>
+                <li>802.1X + RADIUS</li>
+                <li>Zero Trust</li>
+                <li>MFA et principe du moindre privilège</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="cli" class="content">
+        <div class="card">
+            <h3>Terminal de commande réseau simulé</h3>
+            <p>Commandes : help, ping, ipconfig, traceroute, nslookup, clear</p>
+            <div class="terminal" id="termOutput">
+                <div>Bienvenue dans la console réseau v1.6.</div>
+                <div>Tapez 'help' pour la liste des commandes.</div>
+            </div>
+            <div class="terminal-input-container">
+                <input type="text" id="termInput" placeholder="Saisissez votre commande..." onkeydown="if(event.key==='Enter') execCmd()">
+                <button class="btn" onclick="execCmd()">Exécuter</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="outils" class="content">
+        <div class="card">
+            <h3>Calculateur de Sous-Réseau CIDR</h3>
+            <p>Exemple : 192.168.1.50/26</p>
+            <input type="text" id="cidrInput" value="192.168.1.50/26">
+            <button class="btn" onclick="analyserCIDR()">Analyser</button>
+            <pre id="cidrOutput">En attente de calcul...</pre>
+        </div>
+    </div>
+
+    <div id="exercices" class="content">
+        <div class="card">
+            <h3>Exercices Pratiques Corrigés</h3>
+
+            <div class="exo-box">
+                <h4>Exercice 1 – Câblage</h4>
+                <p>Quand utilise-t-on un câble croisé plutôt qu’un câble droit ?</p>
+                <button class="btn btn-secondary" onclick="toggleExo(1)">Voir la correction</button>
+                <div id="exoAns1" style="display:none; margin-top:10px;">
+                    On utilise un câble croisé pour connecter deux équipements de même type (PC↔PC ou Switch↔Switch). Aujourd’hui l’Auto-MDIX rend cela rarement nécessaire.
+                </div>
+            </div>
+
+            <div class="exo-box">
+                <h4>Exercice 2 – Fibre optique</h4>
+                <p>Quelle est la principale différence entre fibre monomode et multimode ?</p>
+                <button class="btn btn-secondary" onclick="toggleExo(2)">Voir la correction</button>
+                <div id="exoAns2" style="display:none; margin-top:10px;">
+                    La fibre monomode permet des distances beaucoup plus longues grâce à un cœur plus fin.
+                </div>
+            </div>
+
+            <div class="exo-box">
+                <h4>Exercice 3 – Sécurité</h4>
+                <p>Qu’est-ce qu’une attaque Man-in-the-Middle ?</p>
+                <button class="btn btn-secondary" onclick="toggleExo(3)">Voir la correction</button>
+                <div id="exoAns3" style="display:none; margin-top:10px;">
+                    L’attaquant s’interpose entre deux parties et intercepte (ou modifie) les données échangées.
+                </div>
+            </div>
+
+            <div class="exo-box">
+                <h4>Exercice 4 – Firewall</h4>
+                <p>Différence entre firewall stateful et stateless ?</p>
+                <button class="btn btn-secondary" onclick="toggleExo(4)">Voir la correction</button>
+                <div id="exoAns4" style="display:none; margin-top:10px;">
+                    Un firewall stateful garde en mémoire l’état des connexions. Un firewall stateless traite chaque paquet indépendamment.
+                </div>
+            </div>
+
+            <div class="exo-box">
+                <h4>Exercice 5 – DHCP</h4>
+                <p>Rôle de la phase Discover dans le cycle DORA ?</p>
+                <button class="btn btn-secondary" onclick="toggleExo(5)">Voir la correction</button>
+                <div id="exoAns5" style="display:none; margin-top:10px;">
+                    Le client envoie un message en broadcast pour découvrir un serveur DHCP.
+                </div>
+            </div>
+
+            <div class="exo-box">
+                <h4>Exercice 6 – Calcul /27</h4>
+                <p>Combien d’hôtes utilisables dans un réseau /27 ?</p>
+                <button class="btn btn-secondary" onclick="toggleExo(6)">Voir la correction</button>
+                <div id="exoAns6" style="display:none; margin-top:10px;">
+                    32 – 2 = 30 hôtes utilisables.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="quiz" class="content">
+        <div class="card">
+            <h3>Quiz Global (8 Questions)</h3>
+
+            <div class="quiz-question">
+                <p>1. Quel projet a donné naissance au modèle TCP/IP ?</p>
+                <label><input type="radio" name="qz1" value="a"> INTERNETNET</label>
+                <label><input type="radio" name="qz1" value="b"> ARPANET</label>
+                <label><input type="radio" name="qz1" value="c"> MILNET</label>
+            </div>
+            <div class="quiz-question">
+                <p>2. À quelle couche OSI appartient le protocole IP ?</p>
+                <label><input type="radio" name="qz2" value="a"> Couche 2</label>
+                <label><input type="radio" name="qz2" value="b"> Couche 3</label>
+                <label><input type="radio" name="qz2" value="c"> Couche 4</label>
+            </div>
+            <div class="quiz-question">
+                <p>3. Quel connecteur utilise-t-on pour la paire torsadée ?</p>
+                <label><input type="radio" name="qz3" value="a"> RJ11</label>
+                <label><input type="radio" name="qz3" value="b"> RJ45</label>
+                <label><input type="radio" name="qz3" value="c"> BNC</label>
+            </div>
+            <div class="quiz-question">
+                <p>4. Quelle fibre permet les plus longues distances ?</p>
+                <label><input type="radio" name="qz4" value="a"> Multimode</label>
+                <label><input type="radio" name="qz4" value="b"> Monomode</label>
+                <label><input type="radio" name="qz4" value="c"> Coaxiale</label>
+            </div>
+            <div class="quiz-question">
+                <p>5. Quel protocole attribue automatiquement une IP ?</p>
+                <label><input type="radio" name="qz5" value="a"> DNS</label>
+                <label><input type="radio" name="qz5" value="b"> DHCP</label>
+                <label><input type="radio" name="qz5" value="c"> NAT</label>
+            </div>
+            <div class="quiz-question">
+                <p>6. Que signifie VPN ?</p>
+                <label><input type="radio" name="qz6" value="a"> Virtual Private Network</label>
+                <label><input type="radio" name="qz6" value="b"> Very Protected Network</label>
+                <label><input type="radio" name="qz6" value="c"> Virtual Public Network</label>
+            </div>
+            <div class="quiz-question">
+                <p>7. Quelle attaque intercepte la communication entre deux parties ?</p>
+                <label><input type="radio" name="qz7" value="a"> DDoS</label>
+                <label><input type="radio" name="qz7" value="b"> Man-in-the-Middle</label>
+                <label><input type="radio" name="qz7" value="c"> Phishing</label>
+            </div>
+            <div class="quiz-question">
+                <p>8. Combien d’hôtes utilisables dans un /27 ?</p>
+                <label><input type="radio" name="qz8" value="a"> 32</label>
+                <label><input type="radio" name="qz8" value="b"> 30</label>
+                <label><input type="radio" name="qz8" value="c"> 62</label>
+            </div>
+
+            <button class="btn" onclick="evalQuiz()">Soumettre toutes les réponses</button>
+            <div id="quizScore" class="score-box"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ========== THÈME ==========
+    function toggleTheme() {
+        const body = document.body;
+        const current = body.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        body.setAttribute('data-theme', next);
+        document.querySelector('.theme-toggle').textContent = next === 'dark' ? '☀️ Mode Clair' : '🌙 Mode Sombre';
+    }
+
+    // ========== ONGLETS ==========
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+            this.classList.add('active');
+            document.getElementById(this.dataset.tab).classList.add('active');
+            arreterLecture(); // Arrête la lecture quand on change d'onglet
+        });
+    });
+
+    // ========== LECTURE VOCALE ==========
+    let voices = [];
+    const rateControl = document.getElementById('rateControl');
+    const rateValue = document.getElementById('rateValue');
+    const voiceSelect = document.getElementById('voiceSelect');
+
+    rateControl.addEventListener('input', () => {
+        rateValue.textContent = parseFloat(rateControl.value).toFixed(1) + 'x';
+    });
+
+    function chargerVoix() {
+        voices = speechSynthesis.getVoices();
+        voiceSelect.innerHTML = '';
+        
+        // Priorité aux voix françaises
+        const frenchVoices = voices.filter(v => v.lang.startsWith('fr'));
+        const otherVoices = voices.filter(v => !v.lang.startsWith('fr'));
+        
+        const sorted = [...frenchVoices, ...otherVoices];
+        
+        sorted.forEach((voice, i) => {
+            const option = document.createElement('option');
+            option.value = voices.indexOf(voice);
+            option.textContent = `${voice.name} (${voice.lang})`;
+            if (voice.lang.startsWith('fr') && i === 0) option.selected = true;
+            voiceSelect.appendChild(option);
+        });
+    }
+
+    // Certains navigateurs chargent les voix de façon asynchrone
+    speechSynthesis.onvoiceschanged = chargerVoix;
+    chargerVoix();
+
+    function lireSectionActuelle() {
+        arreterLecture();
+        
+        const section = document.querySelector('.content.active');
+        if (!section) return;
+
+        // On récupère le texte visible (sans les boutons et éléments techniques)
+        let texte = section.innerText
+            .replace(/Voir la correction/g, '')
+            .replace(/Soumettre toutes les réponses/g, '')
+            .replace(/\n{2,}/g, '\n')
+            .trim();
+
+        if (!texte) {
+            alert("Aucun texte à lire dans cette section.");
+            return;
+        }
+
+        const utterance = new SpeechSynthesisUtterance(texte);
+        utterance.lang = 'fr-FR';
+        utterance.rate = parseFloat(rateControl.value);
+        utterance.pitch = 1;
+        
+        const selectedIndex = voiceSelect.value;
+        if (voices[selectedIndex]) {
+            utterance.voice = voices[selectedIndex];
+        }
+
+        speechSynthesis.speak(utterance);
+    }
+
+    function arreterLecture() {
+        if (speechSynthesis.speaking) {
+            speechSynthesis.cancel();
+        }
+    }
+
+    // ========== TERMINAL ==========
+    function execCmd() {
+        const input = document.getElementById('termInput');
+        const output = document.getElementById('termOutput');
+        const cmd = input.value.trim();
+        if (!cmd) return;
+        const line = document.createElement('div');
+        line.textContent = '> ' + cmd;
+        line.style.color = '#38bdf8';
+        output.appendChild(line);
+        const parts = cmd.split(' ');
+        const mainCmd = parts[0].toLowerCase();
+        const arg = parts[1] || '';
+        const res = document.createElement('div');
+        res.style.marginBottom = "8px";
+        switch (mainCmd) {
+            case 'help':
+                res.textContent = "Commandes : ping [ip], ipconfig, traceroute [hôte], nslookup [domaine], clear, help";
+                break;
+            case 'ping':
+                res.textContent = arg ? `Envoi de paquets vers ${arg}...\nRéponse : temps=12ms TTL=56\n0% de perte.` : "Usage: ping <ip>";
+                break;
+            case 'ipconfig':
+                res.textContent = "IP : 192.168.1.45\nMasque : 255.255.255.0\nPasserelle : 192.168.1.1";
+                break;
+            case 'traceroute':
+            case 'tracert':
+                res.textContent = arg ? `Itinéraire vers ${arg} :\n 1 1 ms 192.168.1.1\n 2 12 ms ${arg}` : "Usage: traceroute <hôte>";
+                break;
+            case 'nslookup':
+                res.textContent = arg ? `Serveur : local\nNom : ${arg}\nAdresse : 142.250.185.78` : "Usage: nslookup <domaine>";
+                break;
+            case 'clear':
+                output.innerHTML = '';
+                input.value = '';
+                return;
+            default:
+                res.textContent = `'${mainCmd}' non reconnu. Tapez 'help'.`;
+                res.style.color = '#ef4444';
+        }
+        output.appendChild(res);
+        output.scrollTop = output.scrollHeight;
+        input.value = '';
+    }
+
+    // ========== CALCULATEUR ==========
+    function analyserCIDR() {
+        const val = document.getElementById('cidrInput').value.trim();
+        const out = document.getElementById('cidrOutput');
+        const match = val.match(/^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\/(\d{1,2})$/);
+        if (!match) {
+            out.textContent = "Erreur : Format requis (ex: 192.168.1.0/24)";
+            return;
+        }
+        const cidr = parseInt(match[2]);
+        if (cidr < 0 || cidr > 32) {
+            out.textContent = "Erreur : CIDR entre 0 et 32 requis.";
+            return;
+        }
+        const hostBits = 32 - cidr;
+        const totalHosts = Math.pow(2, hostBits);
+        const usableHosts = hostBits >= 2 ? totalHosts - 2 : (hostBits === 1 ? 0 : 1);
+        out.textContent = `--- RÉSULTAT ---\nIP : ${match[1]} /${cidr}\nBits hôtes : ${hostBits}\nCapacité totale : ${totalHosts}\nHôtes utiles : ${usableHosts}`;
+    }
+
+    // ========== EXERCICES ==========
+    function toggleExo(id) {
+        const el = document.getElementById('exoAns' + id);
+        el.style.display = el.style.display === 'none' ? 'block' : 'none';
+    }
+
+    // ========== QUIZ ==========
+    function evalQuiz() {
+        let score = 0;
+        const answers = {qz1:'b', qz2:'b', qz3:'b', qz4:'b', qz5:'b', qz6:'a', qz7:'b', qz8:'b'};
+        for (let i = 1; i <= 8; i++) {
+            const checked = document.querySelector(`input[name="qz${i}"]:checked`);
+            if (checked && checked.value === answers[`qz${i}`]) score++;
+        }
+        const box = document.getElementById('quizScore');
+        box.style.display = 'block';
+        box.innerHTML = `Score final : <strong>${score} / 8</strong><br>` +
+            (score === 8 ? "Parfait ! Tu maîtrises le sujet." : "Bon travail ! Revois les questions ratées.");
+        box.style.background = score === 8 ? "#10b981" : "#f59e0b";
+    }
+</script>
+</body>
+</html>
