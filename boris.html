@@ -7,296 +7,471 @@
     <title>Apprendre le Réseau - Cours + Lecture Vocale</title>
     <style>
         :root {
-            --bg-color: #f0f4f8;
-            --card-bg: #ffffff;
-            --text-color: #333333;
-            --text-muted: #555555;
-            --primary: #1a3c6e;
-            --primary-hover: #14305a;
-            --accent-blue: #e8eef5;
-            --border-color: #e5eaf0;
-            --box-bg: #f8fafc;
-            --code-bg: #1e1e1e;
-            --code-text: #f8f8f2;
-        }
-        [data-theme="dark"] {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --text-color: #f1f5f9;
+            --bg-color: #0a0f1a;
+            --card-bg: #111827;
+            --text-color: #e0f2fe;
             --text-muted: #94a3b8;
-            --primary: #38bdf8;
-            --primary-hover: #0284c7;
-            --accent-blue: #334155;
-            --border-color: #334155;
+            --primary: #22d3ee;
+            --primary-hover: #06b6d4;
+            --accent: #10b981;
+            --accent-blue: #0f172a;
+            --border-color: #1e3a5f;
             --box-bg: #0f172a;
-            --code-text: #38bdf8;
+            --code-bg: #020617;
+            --code-text: #22d3ee;
+            --glow: 0 0 12px rgba(34, 211, 238, 0.35);
+            --glow-strong: 0 0 20px rgba(34, 211, 238, 0.5);
         }
-        * { 
+
+        [data-theme="light"] {
+            --bg-color: #f0f7ff;
+            --card-bg: #ffffff;
+            --text-color: #0f172a;
+            --text-muted: #475569;
+            --primary: #0284c7;
+            --primary-hover: #0369a1;
+            --accent: #059669;
+            --accent-blue: #e0f2fe;
+            --border-color: #bae6fd;
+            --box-bg: #f8fafc;
+            --code-bg: #0f172a;
+            --code-text: #22d3ee;
+            --glow: 0 0 8px rgba(2, 132, 199, 0.2);
+            --glow-strong: 0 0 14px rgba(2, 132, 199, 0.3);
+        }
+
+        * {
             margin: 0;
-            padding: 0; 
-            box-sizing: border-box; 
+            padding: 0;
+            box-sizing: border-box;
         }
-        body { 
-            font-family: 'Segoe UI', Arial, sans-serif; 
-            background: var(--bg-color); 
-            padding: 16px; 
-            color: var(--text-color); 
-            line-height: 1.65; 
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg-color);
+            background-image: 
+                linear-gradient(rgba(34, 211, 238, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(34, 211, 238, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            padding: 16px;
+            color: var(--text-color);
+            line-height: 1.65;
+            min-height: 100vh;
         }
-        .container { 
-            max-width: 1120px; 
-            margin: auto; 
-            background: var(--card-bg); 
-            border-radius: 14px; 
-            padding: 24px; 
-            box-shadow: 0 6px 20px rgba(0,0,0,0.1); 
+
+        .container {
+            max-width: 1120px;
+            margin: auto;
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 28px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--glow), 0 20px 40px rgba(0,0,0,0.4);
+            position: relative;
+            overflow: hidden;
         }
-        .header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: flex-start; 
-            flex-wrap: wrap; 
-            gap: 12px; 
-            margin-bottom: 18px; 
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary), var(--accent), var(--primary), transparent);
+            opacity: 0.8;
         }
-        h1 { 
-            color: var(--primary); 
-            font-size: 1.75rem; 
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 1.8rem;
             line-height: 1.3;
+            text-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
+            letter-spacing: -0.5px;
         }
-        .subtitle { 
-            color: var(--text-muted); 
-            margin-top: 4px;
+
+        .subtitle {
+            color: var(--text-muted);
+            margin-top: 6px;
             font-size: 0.95rem;
+            font-family: 'Consolas', 'Monaco', monospace;
         }
+
         .header-actions {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
         }
-        .theme-toggle { 
-            padding: 8px 14px; 
-            background: var(--accent-blue); 
-            color: var(--text-color); 
-            border: 1px solid var(--border-color); 
-            border-radius: 8px; 
-            cursor: pointer; 
-            font-weight: 600; 
+
+        .theme-toggle {
+            padding: 9px 16px;
+            background: var(--accent-blue);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
             white-space: nowrap;
+            transition: all 0.2s;
         }
-        .tabs { 
-            display: flex; 
-            gap: 6px; 
-            margin: 12px 0 18px; 
+
+        .theme-toggle:hover {
+            border-color: var(--primary);
+            box-shadow: var(--glow);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 6px;
+            margin: 14px 0 20px;
             overflow-x: auto;
             overflow-y: hidden;
             white-space: nowrap;
-            border-bottom: 2px solid var(--border-color); 
-            padding-bottom: 12px; 
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 14px;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: thin;
         }
+
         .tabs::-webkit-scrollbar {
-            height: 6px;
+            height: 5px;
         }
+
         .tabs::-webkit-scrollbar-thumb {
             background: var(--border-color);
             border-radius: 4px;
         }
-        .tab { 
-            padding: 9px 14px; 
-            background: var(--accent-blue); 
-            border: none; 
-            border-radius: 8px; 
-            cursor: pointer; 
-            font-weight: 600; 
-            color: var(--text-color); 
+
+        .tab {
+            padding: 9px 15px;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-muted);
             font-size: 0.88rem;
             flex-shrink: 0;
+            transition: all 0.2s;
+            font-family: 'Segoe UI', system-ui, sans-serif;
         }
-        .tab.active { 
-            background: var(--primary); 
-            color: white; 
+
+        .tab:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+            background: rgba(34, 211, 238, 0.08);
         }
+
+        .tab.active {
+            background: rgba(34, 211, 238, 0.15);
+            color: var(--primary);
+            border-color: var(--primary);
+            box-shadow: var(--glow);
+        }
+
         .content { display: none; padding: 8px 0; }
         .content.active { display: block; }
-        .card { 
-            background: var(--box-bg); 
-            border-left: 5px solid var(--primary); 
-            padding: 16px 18px; 
-            margin: 14px 0; 
-            border-radius: 0 10px 10px 0; 
+
+        .card {
+            background: var(--box-bg);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--primary);
+            padding: 18px 20px;
+            margin: 16px 0;
+            border-radius: 0 12px 12px 0;
+            position: relative;
         }
-        .card h3 { 
-            color: var(--primary); 
-            margin-bottom: 10px; 
-            font-size: 1.2rem; 
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 12px;
+            right: 14px;
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent);
+            opacity: 0.7;
         }
-        .card h4 { 
-            margin: 14px 0 6px; 
-            font-size: 1.05rem; 
-            color: var(--primary); 
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .card ul, .card ol { margin-left: 20px; margin-top: 6px; }
-        .card li { margin-bottom: 5px; }
-        .highlight { 
-            background: rgba(59, 130, 246, 0.1); 
-            padding: 12px 15px; 
-            border-radius: 8px; 
-            margin: 12px 0; 
-            border-left: 4px solid #3b82f6; 
+
+        .card h4 {
+            margin: 16px 0 8px;
+            font-size: 1.05rem;
+            color: var(--accent);
         }
-        .schema-box { 
-            background: var(--card-bg); 
-            border: 1px solid var(--border-color); 
-            border-radius: 10px; 
-            padding: 15px; 
-            margin: 15px 0; 
-            text-align: center; 
-            overflow-x: auto; 
+
+        .card ul, .card ol { margin-left: 22px; margin-top: 8px; }
+        .card li { margin-bottom: 6px; }
+
+        .highlight {
+            background: rgba(34, 211, 238, 0.08);
+            padding: 14px 16px;
+            border-radius: 8px;
+            margin: 14px 0;
+            border-left: 3px solid var(--primary);
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.95rem;
         }
-        pre { 
-            background: var(--code-bg); 
-            color: var(--code-text); 
-            padding: 14px; 
-            border-radius: 8px; 
-            overflow-x: auto; 
-            margin: 10px 0; 
-            font-size: 0.9rem; 
-            font-family: Consolas, Monaco, monospace; 
-            text-align: left; 
+
+        .schema-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 16px;
+            margin: 16px 0;
+            text-align: center;
+            overflow-x: auto;
         }
-        code { font-family: Consolas, Monaco, monospace; }
-        .terminal { 
-            background: #0c0c0c; 
-            color: #00ff00; 
-            padding: 14px; 
-            border-radius: 8px; 
-            font-family: monospace; 
-            min-height: 160px; 
-            max-height: 280px; 
-            overflow-y: auto; 
-            margin: 10px 0; 
-            text-align: left; 
-            font-size: 0.9rem;
-        }
-        .terminal-input-container { 
-            display: flex; 
-            gap: 8px; 
-            align-items: center; 
-            margin-top: 10px; 
-            flex-wrap: wrap;
-        }
-        .btn { 
-            padding: 10px 16px; 
-            background: #1a3c6e; 
-            color: white; 
-            border: none; 
-            border-radius: 7px; 
-            cursor: pointer; 
-            margin: 4px 3px 4px 0; 
-            font-weight: 500;
-            font-size: 0.92rem;
-            white-space: nowrap;
-        }
-        .btn:hover { opacity: 0.9; }
-        .btn-secondary { background: #64748b; color: white; }
-        .btn-voice { background: #059669; }
-        .btn-stop { background: #dc2626; }
-        input[type="text"] { 
-            padding: 9px 12px; 
-            border: 1px solid var(--border-color); 
-            background: var(--card-bg); 
-            color: var(--text-color); 
-            border-radius: 6px; 
-            width: 100%;
-            max-width: 320px;
-            font-size: 1rem; 
-        }
-        .table-wrapper {
+
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 16px;
+            border-radius: 8px;
             overflow-x: auto;
             margin: 12px 0;
-            -webkit-overflow-scrolling: touch;
+            font-size: 0.9rem;
+            font-family: 'Consolas', 'Monaco', monospace;
+            text-align: left;
+            border: 1px solid var(--border-color);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
         }
-        table { 
-            width: 100%; 
-            border-collapse: collapse; 
-            font-size: 0.92rem; 
+
+        code { font-family: 'Consolas', 'Monaco', monospace; }
+
+        .terminal {
+            background: #020617;
+            color: #4ade80;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            min-height: 180px;
+            max-height: 300px;
+            overflow-y: auto;
+            margin: 12px 0;
+            text-align: left;
+            font-size: 0.9rem;
+            border: 1px solid #14532d;
+            box-shadow: inset 0 0 30px rgba(16, 185, 129, 0.08);
+        }
+
+        .terminal-input-container {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 18px;
+            background: linear-gradient(135deg, #0e7490, #0891b2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 4px 3px 4px 0;
+            font-weight: 600;
+            font-size: 0.92rem;
+            white-space: nowrap;
+            transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(8, 145, 178, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--glow-strong);
+            filter: brightness(1.1);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #334155, #475569);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .btn-voice {
+            background: linear-gradient(135deg, #047857, #059669);
+            box-shadow: 0 2px 8px rgba(5, 150, 105, 0.3);
+        }
+
+        .btn-stop {
+            background: linear-gradient(135deg, #b91c1c, #dc2626);
+            box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
+        }
+
+        input[type="text"] {
+            padding: 10px 14px;
+            border: 1px solid var(--border-color);
+            background: var(--box-bg);
+            color: var(--text-color);
+            border-radius: 8px;
+            width: 100%;
+            max-width: 340px;
+            font-size: 1rem;
+            font-family: 'Consolas', monospace;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: var(--glow);
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 14px 0;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92rem;
             min-width: 500px;
         }
-        th, td { 
-            border: 1px solid var(--border-color); 
-            padding: 9px 11px; 
-            text-align: left; 
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 10px 12px;
+            text-align: left;
         }
-        th { background: #1a3c6e; color: white; }
-        [data-theme="dark"] th { background: #0f172a; }
-        .quiz-question { 
-            margin: 14px 0; 
-            padding: 14px; 
-            background: var(--card-bg); 
-            border-radius: 10px; 
-            border: 1px solid var(--border-color); 
-            text-align: left; 
+
+        th {
+            background: linear-gradient(180deg, #0e7490, #0c4a6e);
+            color: white;
+            font-weight: 600;
+            letter-spacing: 0.3px;
         }
-        .quiz-question p { font-weight: 600; margin-bottom: 8px; }
-        .quiz-question label { display: block; margin: 6px 0; cursor: pointer; }
-        .score-box { 
-            background: #1a3c6e; 
-            color: white; 
-            padding: 16px; 
-            border-radius: 10px; 
-            text-align: center; 
-            margin-top: 20px; 
-            font-size: 1.1rem; 
-            display: none; 
+
+        [data-theme="light"] th {
+            background: linear-gradient(180deg, #0284c7, #0369a1);
         }
-        .exo-box { 
-            background: rgba(249, 115, 22, 0.08); 
-            border-left: 5px solid #f97316; 
-            padding: 14px; 
-            margin: 12px 0; 
-            border-radius: 0 10px 10px 0; 
-            text-align: left; 
+
+        tr:nth-child(even) {
+            background: rgba(34, 211, 238, 0.03);
         }
-        
-        /* Contrôles vocaux */
+
+        .quiz-question {
+            margin: 16px 0;
+            padding: 16px;
+            background: var(--box-bg);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            text-align: left;
+            transition: border-color 0.2s;
+        }
+
+        .quiz-question:hover {
+            border-color: var(--primary);
+        }
+
+        .quiz-question p {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .quiz-question label {
+            display: block;
+            margin: 8px 0;
+            cursor: pointer;
+            padding: 4px 0;
+        }
+
+        .quiz-question input[type="radio"] {
+            accent-color: var(--primary);
+            margin-right: 8px;
+        }
+
+        .score-box {
+            background: linear-gradient(135deg, #0e7490, #0891b2);
+            color: white;
+            padding: 18px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 22px;
+            font-size: 1.15rem;
+            display: none;
+            box-shadow: var(--glow);
+        }
+
+        .exo-box {
+            background: rgba(16, 185, 129, 0.06);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            border-left: 4px solid var(--accent);
+            padding: 16px;
+            margin: 14px 0;
+            border-radius: 0 10px 10px 0;
+            text-align: left;
+        }
+
         .voice-controls {
             background: var(--accent-blue);
             border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 12px 14px;
-            margin-bottom: 16px;
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 18px;
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 12px;
             align-items: center;
         }
-        .voice-controls label { font-weight: 600; margin-right: 4px; font-size: 0.92rem; }
-        .voice-controls select, .voice-controls input[type="range"] {
-            padding: 6px 10px;
+
+        .voice-controls label {
+            font-weight: 600;
+            margin-right: 4px;
+            font-size: 0.92rem;
+            color: var(--text-muted);
+        }
+
+        .voice-controls select,
+        .voice-controls input[type="range"] {
+            padding: 7px 12px;
             border-radius: 6px;
             border: 1px solid var(--border-color);
-            background: var(--card-bg);
+            background: var(--box-bg);
             color: var(--text-color);
         }
+
         .voice-controls select {
-            max-width: 200px;
+            max-width: 220px;
             width: 100%;
         }
 
         /* ========== RESPONSIVE ========== */
         @media (max-width: 900px) {
             body { padding: 12px; }
-            .container { padding: 20px; }
+            .container { padding: 22px; }
             h1 { font-size: 1.55rem; }
         }
 
         @media (max-width: 700px) {
             body { padding: 10px; }
-            .container { 
-                padding: 16px; 
-                border-radius: 10px;
+            .container {
+                padding: 18px;
+                border-radius: 12px;
             }
             h1 { font-size: 1.4rem; }
             .subtitle { font-size: 0.9rem; }
@@ -329,9 +504,9 @@
                 padding: 8px 12px;
             }
             .card {
-                padding: 14px;
+                padding: 15px;
             }
-            .card h3 { font-size: 1.1rem; }
+            .card h3 { font-size: 1.15rem; }
             .btn {
                 padding: 9px 14px;
                 font-size: 0.88rem;
@@ -353,8 +528,8 @@
             .container { padding: 14px; }
             h1 { font-size: 1.25rem; }
             .card {
-                border-left-width: 4px;
-                padding: 12px;
+                border-left-width: 3px;
+                padding: 13px;
             }
             .tab {
                 font-size: 0.8rem;
@@ -365,31 +540,40 @@
                 min-width: 420px;
             }
             th, td {
-                padding: 7px 8px;
+                padding: 8px 9px;
             }
             .quiz-question {
-                padding: 12px;
+                padding: 13px;
             }
             .exo-box {
-                padding: 12px;
+                padding: 13px;
             }
             pre {
                 font-size: 0.82rem;
-                padding: 12px;
+                padding: 13px;
             }
         }
 
         @media print {
-            body { background: white; color: black; }
-            .tabs, .theme-toggle, .btn, input, .terminal-input-container, .voice-controls, .header-actions { 
-                display: none !important; 
+            body {
+                background: white;
+                color: black;
+                background-image: none;
+            }
+            .tabs, .theme-toggle, .btn, input, .terminal-input-container, .voice-controls, .header-actions {
+                display: none !important;
             }
             .content { display: block !important; page-break-after: always; }
-            .container { 
-                box-shadow: none; 
-                width: 100%; 
-                max-width: none; 
-                padding: 0; 
+            .container {
+                box-shadow: none;
+                border: none;
+                width: 100%;
+                max-width: none;
+                padding: 0;
+            }
+            .card {
+                border: 1px solid #ccc;
+                box-shadow: none;
             }
         }
     </style>
@@ -402,7 +586,7 @@
             <p class="subtitle">Cours exhaustif + Lecture vocale + Matériels & Sécurité</p>
         </div>
         <div class="header-actions">
-            <button class="theme-toggle" onclick="toggleTheme()">🌙 Mode Sombre</button>
+            <button class="theme-toggle" onclick="toggleTheme()">☀️ Mode Clair</button>
             <button class="btn btn-secondary" onclick="window.print()">🖨️ Imprimer / PDF</button>
         </div>
     </div>
@@ -434,7 +618,6 @@
     </div>
 
     <!-- ==================== CONTENUS ==================== -->
-
     <div id="intro" class="content active">
         <div class="card">
             <h3>1. Qu’est-ce qu’un réseau informatique ?</h3>
@@ -650,7 +833,6 @@ Client ── ACK ──► Serveur</pre>
     <div id="exercices" class="content">
         <div class="card">
             <h3>Exercices Pratiques Corrigés</h3>
-
             <div class="exo-box">
                 <h4>Exercice 1 – Câblage</h4>
                 <p>Quand utilise-t-on un câble croisé plutôt qu’un câble droit ?</p>
@@ -659,7 +841,6 @@ Client ── ACK ──► Serveur</pre>
                     On utilise un câble croisé pour connecter deux équipements de même type (PC↔PC ou Switch↔Switch). Aujourd’hui l’Auto-MDIX rend cela rarement nécessaire.
                 </div>
             </div>
-
             <div class="exo-box">
                 <h4>Exercice 2 – Fibre optique</h4>
                 <p>Quelle est la principale différence entre fibre monomode et multimode ?</p>
@@ -668,7 +849,6 @@ Client ── ACK ──► Serveur</pre>
                     La fibre monomode permet des distances beaucoup plus longues grâce à un cœur plus fin.
                 </div>
             </div>
-
             <div class="exo-box">
                 <h4>Exercice 3 – Sécurité</h4>
                 <p>Qu’est-ce qu’une attaque Man-in-the-Middle ?</p>
@@ -677,7 +857,6 @@ Client ── ACK ──► Serveur</pre>
                     L’attaquant s’interpose entre deux parties et intercepte (ou modifie) les données échangées.
                 </div>
             </div>
-
             <div class="exo-box">
                 <h4>Exercice 4 – Firewall</h4>
                 <p>Différence entre firewall stateful et stateless ?</p>
@@ -686,7 +865,6 @@ Client ── ACK ──► Serveur</pre>
                     Un firewall stateful garde en mémoire l’état des connexions. Un firewall stateless traite chaque paquet indépendamment.
                 </div>
             </div>
-
             <div class="exo-box">
                 <h4>Exercice 5 – DHCP</h4>
                 <p>Rôle de la phase Discover dans le cycle DORA ?</p>
@@ -695,7 +873,6 @@ Client ── ACK ──► Serveur</pre>
                     Le client envoie un message en broadcast pour découvrir un serveur DHCP.
                 </div>
             </div>
-
             <div class="exo-box">
                 <h4>Exercice 6 – Calcul /27</h4>
                 <p>Combien d’hôtes utilisables dans un réseau /27 ?</p>
@@ -710,7 +887,6 @@ Client ── ACK ──► Serveur</pre>
     <div id="quiz" class="content">
         <div class="card">
             <h3>Quiz Global (8 Questions)</h3>
-
             <div class="quiz-question">
                 <p>1. Quel projet a donné naissance au modèle TCP/IP ?</p>
                 <label><input type="radio" name="qz1" value="a"> INTERNETNET</label>
@@ -759,7 +935,6 @@ Client ── ACK ──► Serveur</pre>
                 <label><input type="radio" name="qz8" value="b"> 30</label>
                 <label><input type="radio" name="qz8" value="c"> 62</label>
             </div>
-
             <button class="btn" onclick="evalQuiz()">Soumettre toutes les réponses</button>
             <div id="quizScore" class="score-box"></div>
         </div>
@@ -771,9 +946,9 @@ Client ── ACK ──► Serveur</pre>
     function toggleTheme() {
         const body = document.body;
         const current = body.getAttribute('data-theme');
-        const next = current === 'dark' ? 'light' : 'dark';
-        body.setAttribute('data-theme', next);
-        document.querySelector('.theme-toggle').textContent = next === 'dark' ? '☀️ Mode Clair' : '🌙 Mode Sombre';
+        const next = current === 'light' ? 'dark' : 'light';
+        body.setAttribute('data-theme', next || 'dark');
+        document.querySelector('.theme-toggle').textContent = next === 'light' ? '🌙 Mode Sombre' : '☀️ Mode Clair';
     }
 
     // ========== ONGLETS ==========
@@ -783,7 +958,7 @@ Client ── ACK ──► Serveur</pre>
             document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
             this.classList.add('active');
             document.getElementById(this.dataset.tab).classList.add('active');
-            arreterLecture(); // Arrête la lecture quand on change d'onglet
+            arreterLecture();
         });
     });
 
@@ -800,13 +975,12 @@ Client ── ACK ──► Serveur</pre>
     function chargerVoix() {
         voices = speechSynthesis.getVoices();
         voiceSelect.innerHTML = '';
-        
-        // Priorité aux voix françaises
+       
         const frenchVoices = voices.filter(v => v.lang.startsWith('fr'));
         const otherVoices = voices.filter(v => !v.lang.startsWith('fr'));
-        
+       
         const sorted = [...frenchVoices, ...otherVoices];
-        
+       
         sorted.forEach((voice, i) => {
             const option = document.createElement('option');
             option.value = voices.indexOf(voice);
@@ -816,17 +990,15 @@ Client ── ACK ──► Serveur</pre>
         });
     }
 
-    // Certains navigateurs chargent les voix de façon asynchrone
     speechSynthesis.onvoiceschanged = chargerVoix;
     chargerVoix();
 
     function lireSectionActuelle() {
         arreterLecture();
-        
+       
         const section = document.querySelector('.content.active');
         if (!section) return;
 
-        // On récupère le texte visible (sans les boutons et éléments techniques)
         let texte = section.innerText
             .replace(/Voir la correction/g, '')
             .replace(/Soumettre toutes les réponses/g, '')
@@ -842,7 +1014,7 @@ Client ── ACK ──► Serveur</pre>
         utterance.lang = 'fr-FR';
         utterance.rate = parseFloat(rateControl.value);
         utterance.pitch = 1;
-        
+       
         const selectedIndex = voiceSelect.value;
         if (voices[selectedIndex]) {
             utterance.voice = voices[selectedIndex];
@@ -863,15 +1035,19 @@ Client ── ACK ──► Serveur</pre>
         const output = document.getElementById('termOutput');
         const cmd = input.value.trim();
         if (!cmd) return;
+
         const line = document.createElement('div');
         line.textContent = '> ' + cmd;
-        line.style.color = '#38bdf8';
+        line.style.color = '#22d3ee';
         output.appendChild(line);
+
         const parts = cmd.split(' ');
         const mainCmd = parts[0].toLowerCase();
         const arg = parts[1] || '';
+
         const res = document.createElement('div');
         res.style.marginBottom = "8px";
+
         switch (mainCmd) {
             case 'help':
                 res.textContent = "Commandes : ping [ip], ipconfig, traceroute [hôte], nslookup [domaine], clear, help";
@@ -895,8 +1071,9 @@ Client ── ACK ──► Serveur</pre>
                 return;
             default:
                 res.textContent = `'${mainCmd}' non reconnu. Tapez 'help'.`;
-                res.style.color = '#ef4444';
+                res.style.color = '#f87171';
         }
+
         output.appendChild(res);
         output.scrollTop = output.scrollHeight;
         input.value = '';
@@ -907,18 +1084,22 @@ Client ── ACK ──► Serveur</pre>
         const val = document.getElementById('cidrInput').value.trim();
         const out = document.getElementById('cidrOutput');
         const match = val.match(/^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\/(\d{1,2})$/);
+
         if (!match) {
             out.textContent = "Erreur : Format requis (ex: 192.168.1.0/24)";
             return;
         }
+
         const cidr = parseInt(match[2]);
         if (cidr < 0 || cidr > 32) {
             out.textContent = "Erreur : CIDR entre 0 et 32 requis.";
             return;
         }
+
         const hostBits = 32 - cidr;
         const totalHosts = Math.pow(2, hostBits);
         const usableHosts = hostBits >= 2 ? totalHosts - 2 : (hostBits === 1 ? 0 : 1);
+
         out.textContent = `--- RÉSULTAT ---\nIP : ${match[1]} /${cidr}\nBits hôtes : ${hostBits}\nCapacité totale : ${totalHosts}\nHôtes utiles : ${usableHosts}`;
     }
 
@@ -932,15 +1113,17 @@ Client ── ACK ──► Serveur</pre>
     function evalQuiz() {
         let score = 0;
         const answers = {qz1:'b', qz2:'b', qz3:'b', qz4:'b', qz5:'b', qz6:'a', qz7:'b', qz8:'b'};
+
         for (let i = 1; i <= 8; i++) {
             const checked = document.querySelector(`input[name="qz${i}"]:checked`);
             if (checked && checked.value === answers[`qz${i}`]) score++;
         }
+
         const box = document.getElementById('quizScore');
         box.style.display = 'block';
         box.innerHTML = `Score final : <strong>${score} / 8</strong><br>` +
             (score === 8 ? "Parfait ! Tu maîtrises le sujet." : "Bon travail ! Revois les questions ratées.");
-        box.style.background = score === 8 ? "#10b981" : "#f59e0b";
+        box.style.background = score === 8 ? "linear-gradient(135deg, #059669, #10b981)" : "linear-gradient(135deg, #d97706, #f59e0b)";
     }
 </script>
 </body>
